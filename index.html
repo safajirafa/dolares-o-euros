@@ -1,95 +1,76 @@
 <!DOCTYPE html>
-<html lang="es-419">
-    <head>
+<html lang="es">
+	<head>
 		<meta charset="utf-8" />
 		<title>¿Euros o Dolares?</title>
-		<meta name="description" content="Haz tus cuentas para ver si te conviene mejor llevar USD o Euros a Canada" />
-		<meta name="author" content="Andres Valencia" />
-		<link rel="stylesheet" type="text/css" href="css/main.css" />
+		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
 	</head>
-	<body>
-		<ol class="aplicacion">
-            <li class="plata-en-cop">
-                <div>Se acerca el dia de partir a Canada, algunas personas te dicen que lleves dolares americanos, otros te dicen que lleves euros, pero quien tiene razon? Averigualo por ti mismo con esta sencilla herramienta.</div>
-                <label>Cuanta plata tienes</label>
-                <input type="text" id="plataEnCOP" maxlength="10" placeholder="en pesos Colombianos?" />
-            </li>
-            <li class="compra-divisas">
-                <div>A como te estan vendiendo... (en pesos Colombianos)</div>
-                <table>
-                    <tr>
-                        <td>Cada dolar americano?</td>
-                        <td>Cada euro?</td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" id="precioCompraUSD" placeholder="1 USD" maxlength="6" /></td>
-                        <td><input type="text" id="precioCompraEURO" placeholder="1 Euro" maxlength="6"/></td>
-                    </tr>
-                    <tr class="resultado-compra-divisas">
-                        <td>Tendras en USD</td>
-                        <td>Tendras en Euros</td>
-                    </tr>
-                    <tr class="resultado-compra-divisas">
-                        <td class="resultadoCompraUSD">0</td>
-                        <td class="resultadoCompraEURO">0</td>
-                    </tr>
-                </table>
-            </li>
-            <!--<div class="resumen-compra">
-                <p>Entonces con lo que acabas de ingresar, tendras...</p>
-                <label>En dolares americanos</label>
-                <span class="totalUSDporCOP">0.00</span>
-                <label>En Euros</label>
-                <span class="totalEUROSporCOP">0.00</span>
-            </div>-->
-            <li class="venta-divisas">
-                <div>Para que te hagas una idea: <a href="http://www.scotiabank.com/ca/en/0,,1118,00.html" target="_blank">En la pagina de foreign exchange rates del Scotiabank</a> en la fila "United States" y en la fila Euro consulta la columna "Client Sales (Receives Canadian)" e Ingresa el valor que corresponde...</div>
-                <p>El banco te pagara por cada:</p>
-                <table>
-                    <tr>
-                        <td>Dolar americano</td>
-                        <td>Euro</td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" id="precioVentaUSD" placeholder="CAD" maxlength="6" /></td>
-                        <td><input type="text" id="precioVentaEURO" placeholder="CAD" maxlength="6" /></td>
-                    </tr>
-                </table>
-            </li>
-            <li class="acciones">
-                <input type="button" id="calcular" value="Hagamos cuentas!" />
-                <input type="button" id="limpiar" value="Comenzar de nuevo" />
-            </li>
-            <li class="resumen-operaciones">
-                <p>Resumen de la operacion</p>
-                <table>
-                    <tr>
-                        <td>Si llevas dolares americanos tendras en CAD</td>
-                        <td>Si llevas euros tendras en CAD</td>
-                    </tr>
-                    <tr>
-                        <td class="resumenOperacionUSDenCAD">0.00</td>
-                        <td class="resumenOperacionEUROenCAD">0.00</td>
-                    </tr>
-                </table>
-            </li>
-		</ol>
+	<body ng-app ng-cloak>
+		<div class="container">
+			<div class="row">
+				<div class="span12">
+					<h5>Se acerca el dia de partir a Canada, algunas personas te dicen que lleves dolares americanos, otros te dicen que lleves euros, pero quien tiene razon? Averigualo por ti mismo con esta sencilla herramienta.</h5>
+					<fieldset>
+						<legend>Primero las cuentas en pesos Colombianos</legend>
+
+						<label>De cuanta plata dispones actualmente:</label>
+						<input type="text" maxlength="10" placeholder="en pesos Colombianos?" ng-model="plataEnCOP" ng-init="plataEnCOP=2000000" />
+
+						<label>A como te estan vendiendo 1 Dolar americano... (en pesos Colombianos)</label>
+						<input type="text" maxlength="6" ng-model="precioCompraUSD" />
+
+						<label>A como te estan vendiendo 1 Euro... (en pesos Colombianos)</label>
+						<input type="text" maxlength="6" ng-model="precioCompraEURO"/>
+
+						<label>Tendr&aacute;s en USD</label>
+						<input type="text" value="{{plataEnCOP / precioCompraUSD | currency}}" readonly />
+
+						<label>Tendr&aacute;s en Euros</label>
+						<input type="text" value="{{plataEnCOP / precioCompraEURO | currency:'&euro;'}}" readonly />
+
+					</fieldset>
+
+					<h5>Para que te hagas una idea: <a href="http://www.scotiabank.com/ca/en/0,,1118,00.html" target="_blank">En la pagina de foreign exchange rates del Scotiabank</a> en la fila "United States" y en la fila Euro consulta la columna "Client Sales (Receives Canadian)" e Ingresa el valor que corresponde...</h5>
+					<fieldset>
+						<legend>Hagamos cuentas en dolares (Canadienses)</legend>
+						<label>El banco te pagara:</label>
+
+						<label>Por cada Dolar americano</label>
+						<input type="text" ng-model="precioVentaUSD" ng-init="precioVentaUSD=0.984500" />
+
+						<label>Por cada Euro</label>
+						<input type="text" ng-model="precioVentaEURO" ng-init="precioVentaEURO=1.307200" />
+
+					</fieldset>
+
+					<fieldset>
+						<legend>resultado de la operacion</legend>
+
+						<label>Si llevas dolares americanos, tendras en CAD</label>
+						<input type="text" value="{{(plataEnCOP / precioCompraUSD) * precioVentaUSD | currency:'CAD\t'}}" readonly>
+
+						<label>Si llevas euros, tendras en CAD</label>
+						<input type="text" value="{{(plataEnCOP / precioCompraEURO) * precioVentaEURO | currency:'CAD\t'}}" readonly>
+					</fieldset>
+
+				</div>
+			</div>
+		</div>
 
 		<!-- javascript -->
-		<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-		<script src="js/main.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
 
-        <!-- Google Analytics -->
-        <script type="text/javascript">
+		<!-- Google Analytics -->
+		<script type="text/javascript">
 
-    	  var _gaq = _gaq || [];
+		  var _gaq = _gaq || [];
 		  _gaq.push(['_setAccount', 'UA-29660095-1']);
 		  _gaq.push(['_trackPageview']);
 
 		  (function() {
-		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 		  })();
 
 		</script>
