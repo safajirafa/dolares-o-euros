@@ -1,0 +1,24 @@
+{
+  "name": "EurorDollar",
+  "version": "0.1.0",
+  "description": "App que le ayuda a un inmigrante Colombiano a determinar si es mejor llevar dolares americanos o euros para tener mas dolares Canadienses al llegar",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/safajirafa/dolares-o-euros.git"
+  },
+  "keywords": [
+    "angularjs",
+    "nojquery"
+  ],
+  "author": "@safajirafa",
+  "license": "BSD",
+  "gitHead": "4c08ec52eb52b07f1073464a2e9418eab920d7dd",
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "grunt-contrib-htmlmin": "~0.1.3"
+  }
+}
